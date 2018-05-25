@@ -1,0 +1,627 @@
+import random
+
+print('Welcome to Hangman!')
+
+def man0():
+  print('_'*10)
+  print('|        |')
+  print(("|\n"*6)+"="*4)
+def man1():
+  print('_'*10)
+  print('|        |')
+  print('|        O')
+  print(("|\n"*5)+"="*4)
+def man2():
+  print('_'*10)
+  print('|        |')
+  print('|        O')
+  print('|        |')
+  print(("|\n"*4)+"="*4)
+def man3():
+  print('_'*10)
+  print('|        |')
+  print('|        O')
+  print('|        |')
+  print('|       - -')
+  print(("|\n"*3)+"="*4)
+def man4():
+  print('_'*10)
+  print('|        |')
+  print('|        O')
+  print('|        |')
+  print('|       - -')
+  print('|        |')
+  print(("|\n"*2)+"="*4)
+def man5():
+  print('_'*10)
+  print('|        |')
+  print('|        O')
+  print('|        |')
+  print('|       - -')
+  print('|        |')
+  print('|       / \ ')
+  print(("|\n"*1)+"="*4)
+# Insert the code from last exercise here.  
+def RandWord():
+  global word
+  myword=[line.strip() for line in open("wordbank.txt")]
+  word = (random.choice(myword))
+RandWord()
+print(word)
+
+count=0  
+guess = list('_'*len(word))
+# Now ask the user to guess the word
+while list(word) != guess:
+  print(' '.join(guess))  # This joins the guess with the blank spaces
+  x= str(input("Enter Guess Here: ")).upper()#Step 3
+  if x not in word:
+    print("Incorrect")
+    if count==0:
+      man0()
+    elif count==1:
+      man1()
+    elif count==2:
+      man2()
+    elif count==3:
+      man3()
+    elif count==4:
+      man4()
+    elif count==5:
+      man5()
+    elif count==6:
+      quit()
+    count+=1
+  else:
+    i=0
+    while i<len(word):
+      if list(word)[i] == x:
+        guess[i] = x
+        if count==0:
+          man0()
+        elif count==1:
+          man1()
+        elif count==2:
+          man2()
+        elif count==3:
+          man3()
+        elif count==4:
+          man4()
+        elif count==5:
+          man5()
+        elif count==6:
+          quit()
+      i+=1
+      
+            
+print('You\'re right! it\'s ' + word + '.')
+
+print ("TIC TAC TOE board. Rows and Columns starting from 1,1")
+print ("Game board is printed each time to show progress!")
+# Declare the blank game           
+a=[[0,0,0], 
+   [0,0,0],
+   [0,0,0]]
+      
+count = 0
+
+# create the print gameboard function
+def print_game(a):
+    print ("\n")
+    for i in range(3):
+        print (str(a[i]) + "\n")
+
+  
+
+
+
+# Insert the checkWin function here.
+def checkWin():
+  if a[0][0]==a[0][1]==a[0][2]== 'X':
+    print("Player 1 is the winner")
+  elif a[0][0]==a[0][1]==a[0][2]=='O':
+    print("Player 2 is the winner")
+  elif a[1][0]==a[1][1]==a[1][2]=='X':
+    print("Player 1 is the winner")
+  elif a[1][0]==a[1][1]==a[1][2]=='O':
+    print("Player 2 is the winner")
+  elif a[2][0]==a[2][1]==a[2][2]=='X':
+    print("Player 1 is the winner")
+  elif a[2][0]==a[2][1]==a[2][2]=='O':
+    print("Player 2 is the winner")
+  elif a[0][0]==a[1][0]==a[2][0]=='X':
+    print("Player 1 is the winner")
+  elif a[0][0]==a[1][0]==a[2][0]=="O":
+    print("Player 2 is the winner")
+  elif a[0][1]==a[1][1]==a[2][1]=='X':
+    print("Player 1 is the winner")
+  elif a[0][1]==a[1][1]==a[2][1]=='O':
+    print("Player 2 is the winner")
+  elif a[0][2]==a[1][2]==a[2][2]=='X':
+    print("Player 1 is the winner")
+  elif a[0][2]==a[1][2]==a[2][2]=='O':
+    print("Player 2 is the winner")
+  elif a[0][0]==a[1][1]==a[2][2]=='X':
+    print("Player 1 is the winner")
+  elif a[0][0]==a[1][1]==a[2][2]=='O':
+    print("Player 2 is the winner")
+  elif a[0][2]==a[1][1]==a[2][0]=='X':
+    print("Player 1 is the winner")
+  elif a[0][2]==a[1][1]==a[2][0]=='O':
+    print("Player 2 is the winner")
+  elif a[0] !=0 and a[1] !=0 and a[2] !=0:
+    print("Draw")
+# Now lets start the game
+while True:
+  spot = input("Enter the row,column in same format as given: ")
+  spot = spot.split(",") # This will remove the comma
+  row = int(spot[0]) -1    
+  column = int(spot[1]) -1
+  if count%2==0:
+   print ("\nPlayer 1's Turn!")
+   if a[row][column] == 0:  # Make sure the spot is blank
+     a[row][column] = 'X'   # if it's blank, mark an X
+   else:
+     print ("Try Again!")      # if it's not blank, try again
+     count-=1   # this will reset the counter, so you can try again
+   print_game(a)  # print your new game board
+   
+  else:
+    print ("\nPlayer 2's Turn!")
+    if a[row][column] == 0:  # Make sure the spot is blank
+      a[row][column] = 'O'   # if it's blank, mark an O
+    else:
+      print ("Try Again!")      # if it's not blank, try again
+      count-=1   # this will reset the counter, so you can try again
+    print_game(a)  # print your new game board 
+  count+=1
+   # Now do the same thing for player 2 as you did for player 1
+        # Player 2 is an 'O' 
+
+  #Insert the code from Step 4
+  checkWin()
+print ("Game Over!")
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+key = int(input('Enter the key shift: '))
+newMessage=" "
+message=input('Please enter a message: ')
+for character in message:
+  if character in alphabet:
+    position=alphabet.find(character)
+    newPosition=(position + key)%26
+    newCharacter = alphabet[newPosition]
+    newMessage+=newCharacter
+  else:
+    newMessage+=character
+print(str("Your new message is: ")+newMessage)
+
+import time#i made my own clock because i wanted to see if i could do it by myself
+import turtle 
+
+x=turtle.Turtle()
+x.shape('turtle')
+x.speed('fastest')
+x.color('red')
+x.up()
+x.setpos(0,-150)
+x.down()
+x.circle(150)
+x.color('black')
+x.up()
+x.setpos(0,0)
+x.down()
+
+
+def clock():
+  for tick in range(12):
+    x.color('black')
+    x.up()
+    x.fd(80)
+    x.down()
+    x.forward(10)
+    x.up()
+    x.fd(30)
+    x.color('blue')
+    x.stamp()
+    x.bk(120)
+    x.right(30)
+  x.ht()
+
+clock()
+
+y=turtle.Turtle()
+y.color('red')
+y.speed('fastest')
+y.ht
+y.left(90)
+w=turtle.Turtle()
+w.speed('fastest')
+w.ht()
+w.left(90)
+w.width(5)
+z=turtle.Turtle()
+z.speed('fastest')
+z.ht()
+z.left(90)
+z.width(3)
+
+def clock_hands(count):
+  w.setpos(0,0)
+  w.rt(30)
+  z.setpos(0,0)
+  z.rt(6)
+  while True:
+    if count%3600==0:
+      w.clear()
+      w.fd(75)
+      w.up()
+      w.setpos(0,0)
+      w.down()
+      w.rt(30)
+      z.clear()
+      z.fd(100)
+      z.up()
+      z.setpos(0,0)
+      z.down()
+      z.rt(6)
+      y.fd(125)
+      y.stamp()
+      y.up()
+      y.setpos(0,0)
+      y.down()
+      y.rt(6)
+    elif count%60==0:
+      z.clear()
+      z.fd(100)
+      z.up()
+      z.setpos(0,0)
+      z.down()
+      z.rt(6)
+      y.fd(125)
+      y.stamp()
+      y.up()
+      y.setpos(0,0)
+      y.down()
+      y.rt(6)
+    else:
+      y.fd(125)
+      y.stamp()
+      y.up()
+      y.setpos(0,0)
+      y.down()
+      y.rt(6)
+    time.sleep(1)
+    y.clear()
+    count+=1
+    print(count)
+
+h=int(input('Enter [1] for your own time, [2] for local time')) 
+if h==1:
+  a=int(input('Enter the hour:'))
+  b=int(input('Enter the minute:'))
+  c=int(input('Enter the second:'))
+  d=a*30
+  e=b*6
+  f=c*6
+  w.rt(d)
+  w.fd(75)
+  y.rt(f)
+  y.fd(125)
+  z.rt(e)
+  z.fd(100)
+  clock_hands((a*3600)+(b*60)+c)
+elif h==2:
+  i=time.gmtime(time.time())
+  i=time.localtime()
+  hour=i.tm_hour
+  min=i.tm_min
+  sec=i.tm_sec
+  d=hour*30
+  e=min*6
+  f=sec*6
+  w.rt(d)
+  w.fd(75)
+  y.rt(f)
+  y.fd(125)
+  z.rt(e)
+  z.fd(100)
+  clock_hands((hour*3600)+(min*60)+sec)
+else:
+  print('error')
+import turtle
+
+player1 = turtle.Turtle()
+scr = turtle.Screen()
+player1.color("white")
+window=turtle.Screen()
+window.bgcolor("black")
+
+def m1():    #moves player1 up
+    player1.setheading(90)
+    player1.fd(30)
+    player1.pos()
+    print(Player1.pos())
+
+def m2():    #moves player1 left
+    player1.setheading(180)
+    player1.fd(30)
+    player1.pos()
+    print(player1.pos())
+
+def m3():    #moves player1 right
+    player1.setheading(360)
+    player1.fd(30)
+    player1.pos()
+    print(player1.pos())
+
+def m4():    #moves player1 down
+    player1.setheading(-90)
+    player1.fd(30)
+    player1.pos()
+    print(player1.pos())
+    
+def m5():  #takes player back to the start
+    player1.setpos(0,0)
+    
+def m6():
+    player1.pendown()
+    
+def m7():
+    player1.penup()
+    
+    
+scr.onkey(m1, "Up")
+scr.onkey(m2, "Left")
+scr.onkey(m3, "Right")
+scr.onkey(m4, "Down")
+scr.onkey(m5, "h")
+scr.onkey(m6, "d")
+scr.onkey(m7, "u")
+
+player1.penup()   #this is so it doesn't leave a trail.
+    
+scr.listen()
+
+a=turtle.Turtle()
+a.speed("fastest")
+a.color("blue")
+a.penup()
+a.setpos(-125,150)
+a.pendown()
+a.left(90)
+a.forward(30)
+a.right(135)
+a.forward(45)
+a.left(90)
+a.forward(45)
+a.right(135)
+a.forward(30)
+a.left(90)
+a.penup()
+a.forward(30)
+a.pendown()
+a.left(90)
+a.forward(30)
+a.right(90)
+a.forward(30)
+a.right(90)
+a.forward(15)
+a.right(90)
+a.forward(30)
+a.backward(30)
+a.left(90)
+a.forward(15)
+a.left(90)
+a.penup()
+a.forward(30)
+a.pendown()
+a.forward(30)
+a.backward(30)
+a.left(45)
+a.forward(45)
+a.left(135)
+a.forward(30)
+a.backward(30)
+a.right(180)
+a.penup()
+a.forward(30)
+a.pendown()
+for i in range(2):
+  a.forward(30)
+  a.backward(30)
+  a.right(90)
+  a.forward(15)
+  a.left(90)
+a.forward(30)
+a.hideturtle()
+turtle.done()
+
+
+b=turtle.Turtle()
+b.speed("fastest")
+b.color('blue')
+b.penup()
+b.setpos(-25,-5)
+b.pendown()
+for i in range(3):
+  b.forward(5)
+  b.left(90)
+  
+b.right(180)
+b.forward(5)
+b.right(90)
+b.forward(5)
+
+b.penup()#"T"
+b.forward(5)
+b.pendown()
+b.forward(5)
+b.backward(2.5)
+b.right(90)
+b.forward(10)
+b.left(90)
+b.penup()
+b.forward(5)
+b.pendown()
+
+b.left(90)#"A"
+b.forward(10)
+b.right(90)
+b.forward(5)
+b.right(90)
+b.forward(5)
+b.right(90)
+b.forward(5)
+b.backward(5)
+b.left(90)
+b.forward(5)
+b.backward(10)
+b.left(90)
+
+b.penup()
+b.forward(5)
+b.pendown()
+for i in range(4):
+  b.forward(5)
+  b.right(90)
+b.right(90)
+b.forward(10)
+b.backward(5)
+b.left(45)
+b.forward(7)
+b.left(135)
+b.penup()
+b.forward(10)
+b.pendown()
+b.right(90)
+
+b.penup()#"T"
+b.forward(5)
+b.pendown()
+b.forward(5)
+b.backward(2.5)
+b.right(90)
+b.forward(10)
+b.left(90)
+b.penup()
+b.forward(5)
+b.pendown()
+b.hideturtle()
+
+c=turtle.Turtle()
+c.color("blue")
+c.penup()
+c.setpos(-160,-15)
+font=('Arial', 15, 'Bold')
+c.write("END",False, "left",font)
+c.setpos(-240,120)
+c.color('green')
+c.write('h=Home',False,"left",font)
+c.setpos(-240,100)
+c.write('u=penup',False, "left",font)
+c.setpos(-240,80)
+c.write('d=pendown',False, "left",font)
+
+x=turtle.Turtle()
+x.speed("fastest")
+x.color("red")
+x.penup()
+x.setpos(-45,15)
+x.pendown()
+x.left(90)
+for i in range(4):
+  x.forward(30)
+  x.right(90)
+  x.forward(30)
+  x.penup()
+  x.forward(30)
+  x.pendown()
+  
+
+for i in range(1):
+  x.left(90)
+  x.forward(30)
+  x.left(90)
+  x.forward(90)
+  x.left(90)
+  x.forward(60)
+  x.left(90)
+  x.forward(30)
+  x.right(90)
+  x.penup()
+  x.forward(30)
+  x.pendown()
+  x.right(90)
+  x.forward(60)
+  x.right(90)
+  x.forward(120)
+  x.right(90)
+  x.forward(90)
+  x.right(90)
+  x.forward(30)
+  x.left(90)
+  x.forward(30)
+  x.penup()
+  x.forward(30)
+  x.pendown()
+  x.forward(30)
+  x.right(90)
+  x.forward(60)
+  x.right(90)
+  x.forward(30)
+  x.left(90)
+  x.penup()
+  x.forward(30)
+  x.pendown()
+  x.left(90)
+  x.penup()
+  x.forward(30)
+  x.pendown()
+  x.forward(30)
+  x.left(90)
+  x.forward(120)
+  x.left(90)
+  x.forward(90)
+  x.penup()
+  x.setpos(15,75)
+  x.pendown()
+  x.left(90)
+  x.forward(30)
+  x.right(90)
+  x.forward(60)
+  x.left(90)
+  x.penup()
+  x.forward(30)
+  x.pendown()
+  x.forward(30)
+  x.left(90)
+  x.forward(90)
+  x.left(90)
+  x.forward(90)
+  x.penup()
+  x.setpos(45,-15)
+  x.pendown()
+  x.left(180)
+  x.penup()
+  x.forward(30)
+  x.pendown()
+  x.forward(30)
+  x.left(90)
+  x.forward(30)
+  x.backward(90)
+  x.left(90)
+  x.forward(30)
+  x.right(90)
+  x.forward(30)
+  x.backward(30)
+  x.left(90)
+  x.forward(30)
+  x.backward(60)
+  x.left(90)
+  x.forward(30)
+  x.right(90)
+  x.forward(90) #draws the maze
+  x.hideturtle()
+
