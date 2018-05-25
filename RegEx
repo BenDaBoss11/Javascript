@@ -1,0 +1,38 @@
+function countVowels(str){
+  var re=/(e|i|o|u|a)/g
+  var x=str.match(re)
+  return x.length
+}
+
+function animalCount(str){
+  var re=/( dog | cat | chicken )/g
+  var x=re.test(str)
+  return x
+}
+
+function userName(str){
+  var re=/[a-z](_)[0-9]{2}$/
+  var x=re.test(str)
+  return x
+}
+
+function searchPrice(str) {
+  var x=str.replace(/\D/g,'')
+  return ('$'+x)
+}
+
+function zipCode(str){
+  var re=/^[0-9]{5}$/
+  var x=re.test(str)
+  return x
+}
+function whiteSpace(str){
+  var re=/\s/
+  var x=re.test(str)
+  return x
+}
+function socialSecurityNumber(str){
+  var re=/\d{3}-\d{2}-\d{4}/
+  var x=re.test(str)
+  return x
+}
